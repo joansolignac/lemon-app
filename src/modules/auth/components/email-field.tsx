@@ -4,6 +4,8 @@ import {
   TextInput,
 } from 'react-native';
 
+import { Ionicons } from '@expo/vector-icons';
+
 import { UiInput } from '@/shared/components/ui-input';
 
 interface EmailFieldProps {
@@ -27,6 +29,13 @@ export function EmailField({
 }: EmailFieldProps) {
   return (
     <UiInput
+      leftIcon={
+        <Ionicons
+          name="mail-outline"
+          size={20}
+          color="#666"
+        />
+      }
       label="CORREO ELECTRÓNICO"
       placeholder="Ingrese su correo"
       keyboardType="email-address"

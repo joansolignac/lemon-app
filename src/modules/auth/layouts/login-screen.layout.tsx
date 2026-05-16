@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
 
     paddingHorizontal: 24,
 
-    gap: 32,
+    gap: 24,
   },
 
   card: {

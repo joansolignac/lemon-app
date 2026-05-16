@@ -1,3 +1,5 @@
+import { Ionicons } from '@expo/vector-icons';
+
 import { UiButton } from '@/shared/components/ui-button';
 
 interface LoginSubmitButtonProps {
@@ -19,6 +21,13 @@ export function LoginSubmitButton({
       loading={loading}
       success={success}
       onPress={onPress}
+      rightIcon={
+        <Ionicons
+          name="arrow-forward"
+          size={16}
+          color="#FFFFFF"
+        />
+      }
     />
   );
 }

@@ -6,10 +6,11 @@ import type { ApiErrorResponseDto } from '@/shared/dtos/response/api-error.dto';
 
 import {
   clearSession,
+  getSession,
   saveSession,
 } from '@/shared/storage/secure/secure-storage';
 
-import type { JwtTokensResponseDto } from '../dtos/responses/jwt-tokens.dto';
+import type { AuthSessionResponseDto } from '../dtos/responses/auth-session.dto';
 
 import { LoginRequestDto } from '../dtos/request/login.dto';
 
@@ -17,7 +18,7 @@ import { login } from '../api/auth.api';
 
 export type UseAuthState = {
   session:
-    | JwtTokensResponseDto
+    | AuthSessionResponseDto
     | null;
 
   isAuthenticated: boolean;
@@ -37,6 +38,8 @@ export type UseAuthState = {
   logout(): Promise<void>;
 
   clearError(): void;
+
+  hydrate(): Promise<void>;
 };
 
 export const useAuthStore =
@@ -127,6 +130,18 @@ export const useAuthStore =
       clearError() {
         set({
           error: null,
+        });
+      },
+
+      async hydrate() {
+        const session =
+          await getSession();
+
+        set({
+          session,
+
+          isAuthenticated:
+            !!session,
         });
       },
     }),

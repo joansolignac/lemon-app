@@ -1,10 +1,10 @@
 import * as SecureStore from "expo-secure-store"
-import type { JwtTokensResponseDto } from "@/modules/auth/dtos/responses/jwt-tokens.dto"
+import type { AuthSessionResponseDto } from "@/modules/auth/dtos/responses/auth-session.dto"
 
 const SESSION_KEY = "auth.session";
 
 export async function saveSession(
-    session: JwtTokensResponseDto
+    session: AuthSessionResponseDto
 ): Promise<void> {
     await SecureStore.setItemAsync(
         SESSION_KEY,
@@ -12,10 +12,26 @@ export async function saveSession(
     );
 }
 
-export async function getSession(): Promise<JwtTokensResponseDto | null> {
+export async function getSession(): Promise<AuthSessionResponseDto | null> {
     const value = await SecureStore.getItemAsync(SESSION_KEY);
 
-    return value ? JSON.parse(value) : null;
+    if (!value) {
+        return null;
+    }
+
+    try {
+        const parsed = JSON.parse(value) as Partial<AuthSessionResponseDto>;
+
+        if (!parsed.user) {
+            await clearSession();
+            return null;
+        }
+
+        return parsed as AuthSessionResponseDto;
+    } catch {
+        await clearSession();
+        return null;
+    }
 }
 
 export async function clearSession(): Promise<void> {

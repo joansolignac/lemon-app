@@ -2,8 +2,9 @@ import { useState } from 'react';
 
 import {
   Pressable,
-  Text,
 } from 'react-native';
+
+import { Ionicons } from '@expo/vector-icons';
 
 import { UiInput } from '@/shared/components/ui-input';
 
@@ -33,6 +34,13 @@ export function PasswordField({
 
   return (
     <UiInput
+      leftIcon={
+        <Ionicons
+          name="lock-closed-outline"
+          size={20}
+          color="#666"
+        />
+      }
       label="CONTRASEÑA"
       placeholder="Ingrese contraseña"
       secureTextEntry={!isVisible}
@@ -50,11 +58,15 @@ export function PasswordField({
             )
           }
         >
-          <Text>
-            {isVisible
-              ? '🙈'
-              : '👁'}
-          </Text>
+          <Ionicons
+            name={
+              isVisible
+                ? 'eye-off-outline'
+                : 'eye-outline'
+            }
+            size={20}
+            color="#666"
+          />
         </Pressable>
       }
     />

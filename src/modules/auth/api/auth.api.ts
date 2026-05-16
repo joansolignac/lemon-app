@@ -1,15 +1,15 @@
 import axios, { AxiosError } from "axios";
 import type { LoginRequestDto } from "../dtos/request/login.dto";
-import type { JwtTokensResponseDto } from "../dtos/responses/jwt-tokens.dto";
+import type { AuthSessionResponseDto } from "../dtos/responses/auth-session.dto";
 import { apiConfig } from "@/shared/config/api.config";
 import type { ApiErrorResponseDto } from "@/shared/dtos/response/api-error.dto";
 
 const LOGIN_ENDPOINT = "/auth/login"
 
-export async function login(dto: LoginRequestDto): Promise<JwtTokensResponseDto> {
+export async function login(dto: LoginRequestDto): Promise<AuthSessionResponseDto> {
     try {
 
-        const response = await axios.post<JwtTokensResponseDto>(
+        const response = await axios.post<AuthSessionResponseDto>(
             `${apiConfig.url}${LOGIN_ENDPOINT}`,
             dto
         );
@@ -18,7 +18,7 @@ export async function login(dto: LoginRequestDto): Promise<JwtTokensResponseDto>
 
     } catch(error) {
 
-        throw error as AxiosError<ApiErrorResponseDto> 
+        throw error as AxiosError<ApiErrorResponseDto>
 
     }
 }

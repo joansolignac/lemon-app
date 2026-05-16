@@ -6,6 +6,8 @@ import {
   Text,
 } from 'react-native';
 
+import { Ionicons } from '@expo/vector-icons';
+
 import { UiLoading } from './ui-loading';
 
 interface UiButtonProps {
@@ -44,9 +46,11 @@ export function UiButton({
       {loading ? (
         <UiLoading />
       ) : success ? (
-        <Text style={styles.text}>
-          ✓
-        </Text>
+        <Ionicons
+          name="checkmark"
+          size={20}
+          color="#FFFFFF"
+        />
       ) : (
         <>
           <Text style={styles.text}>
